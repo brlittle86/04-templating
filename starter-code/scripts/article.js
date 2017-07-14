@@ -2,7 +2,7 @@
 
 var articles = [];
 
-function Article (opts) {
+function Article(opts) {
   this.author = opts.author;
   this.authorUrl = opts.authorUrl;
   this.title = opts.title;
@@ -11,7 +11,7 @@ function Article (opts) {
   this.publishedOn = opts.publishedOn;
 }
 
-Article.prototype.toHtml = function() {
+Article.prototype.toHtml = function () {
   var source = $('#article-template').html();
   var templateRender = Handlebars.compile(source);
   // DONE: Use handlebars to render your articles.
@@ -22,7 +22,7 @@ Article.prototype.toHtml = function() {
   //   Since your template can't hold any JS logic, we need to execute the logic here.
   //   The result is added to the object as a new property, which can then be referenced by key in the template.
   //   For example, you might want to display how old a post is, or say "(draft)" if it has no publication date:
-  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000);
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
 
   return templateRender(this);
@@ -30,14 +30,14 @@ Article.prototype.toHtml = function() {
 
 };
 
-rawData.sort(function(a,b) {
+rawData.sort(function (a, b) {
   return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
 });
 
-rawData.forEach(function(articleObject) {
+rawData.forEach(function (articleObject) {
   articles.push(new Article(articleObject));
 });
 
-articles.forEach(function(a){
+articles.forEach(function (a) {
   $('#articles').append(a.toHtml());
 });
